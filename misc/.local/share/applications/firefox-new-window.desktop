@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Firefox New Window
+Exec=firefox --new-window %u
+Terminal=false
+Type=Application
+NoDisplay=true
+StartupNotify=true
+StartupWMClass=firefox

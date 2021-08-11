@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Name=Open folder in terminal
+Exec=kitty -1 -d %u
+Terminal=false
+Type=Application
+NoDisplay=true

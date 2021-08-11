@@ -1,0 +1,270 @@
+# == General ==
+
+# Windows
+set $mod  Mod4
+# Hyper
+set $moda Mod3
+
+set $left  h
+set $down  j
+set $up    k
+set $right l
+
+# == Style ==
+
+# "normal" color
+set $ncolor #431e3f
+# "highlighted" color
+set $hcolor #954f74
+set $white  #ffffff
+set $black  #000000
+
+client.focused          $ncolor $ncolor $white $hcolor $black
+client.focused_inactive $ncolor $ncolor $white $hcolor $black
+
+font pango:Deja Vu Sans Mono 8
+
+output * bg ~/Images/wallpaper fill
+
+# == System ==
+
+seat seat0 hide_cursor 1000
+
+# Add an [X] in the title of non wayland windows
+for_window [shell="xwayland"] title_format "[X] %title"
+# Floating windows
+for_window [title="^QEMU"] floating enable
+
+
+floating_modifier $mod normal
+focus_follows_mouse no
+
+# == Daemons ==
+
+exec battery-notification
+exec dunst
+exec kitty -1
+exec mpd-wrapper
+exec pipewire
+exec pipewire-pulse
+exec swayidle-wrapper
+exec wlsunset -S 07:00 -s 19:00
+
+exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# == Inputs ==
+
+input type:keyboard {
+	# see ~/.xkb/symbols
+	xkb_layout redoste
+}
+
+input type:touchpad {
+	dwt disabled
+	tap enabled
+	natural_scroll disabled
+	middle_emulation enabled
+	pointer_accel 0
+}
+
+# == Keyboard ==
+
+# Audio things
+# (Fn + Up == Page Up)
+bindsym $moda+Up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $moda+Prior exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# (Fn + Down == Page Down)
+bindsym $moda+Down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $moda+Next exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $moda+D exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Light things
+# (Fn + Right == End)
+bindsym $moda+Right exec light -A 10
+bindsym $moda+End exec light -A 10
+bindsym XF86MonBrightnessUp exec light -A 10
+# (Fn + Left == Home)
+bindsym $moda+Left exec light -U 10
+bindsym $moda+Home exec light -U 10
+bindsym XF86MonBrightnessDown exec light -U 10
+
+# System things
+bindsym Print exec grimshot copy area
+bindsym Ctrl+Mod1+l exec swaylock -f -c 000000
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Frequently used apps
+bindsym $mod+Return exec kitty-fast
+bindsym $mod+Backspace exec firefox
+# We use two `--private-window` to force opening a new window (firefox bug ?)
+bindsym $mod+Shift+Backspace exec firefox --private-window --private-window about:privatebrowsing
+
+# This used to be under Mod3 but my new keyboard prevents me from pressing two "Fn-keys" at the same time -_-
+# (Fn + B == Pause)
+bindsym $moda+Pause mode "apps"
+bindsym $moda+B mode "apps"
+mode "apps" {
+	bindsym H exec kitty-fast ', \"htop\"' ; mode "default"
+	bindsym N exec kitty-fast ', \"ncmpcpp\"' ; mode "default"
+	bindsym V exec pavucontrol; mode "default"
+	bindsym C exec swayidle-wrapper-toggle ; mode "default"
+	bindsym Shift+C exec clip-clean ; mode "default"
+	bindsym K exec mpc toggle ; mode "default"
+	bindsym M mode "mpd"
+
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+	bindsym $moda+Pause mode "default"
+	bindsym $moda+B mode "default"
+}
+mode "mpd" {
+	bindsym N exec kitty-fast ', \"ncmpcpp\"' ; mode "default"
+
+	bindsym K          exec mpc toggle    ; mode "default"
+	bindsym Shift+C    exec mpc clear     ; exec notify-send "MPD Playlist cleared" ; mode "default"
+	bindsym less       exec mpc prev      ; mode "default"
+	bindsym Shift+less exec mpc next      ; mode "default"
+	bindsym Up         exec mpc volume +5
+	bindsym Down       exec mpc volume -5
+
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+	bindsym $moda+Pause mode "default"
+	bindsym $moda+B mode "default"
+}
+
+# Dmenus
+# Using `swaymsg exec` instead of `dmenu_run` allows a startup-id like thing
+bindsym $mod+d exec dmenu_path | dmenu | xargs swaymsg exec --
+
+# Dunst
+bindsym $mod+Ctrl+Space exec dunstctl close
+
+# Containers
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Workspaces
+# (azerty is amazing)
+bindsym $mod+ampersand  workspace number 1
+bindsym $mod+eacute     workspace number 2
+bindsym $mod+quotedbl   workspace number 3
+bindsym $mod+apostrophe workspace number 4
+bindsym $mod+parenleft  workspace number 5
+bindsym $mod+minus      workspace number 6
+bindsym $mod+egrave     workspace number 7
+bindsym $mod+underscore workspace number 8
+bindsym $mod+ccedilla   workspace number 9
+bindsym $mod+agrave     workspace number 10
+bindsym $mod+F1         workspace number 11
+bindsym $mod+F2         workspace number 12
+bindsym $mod+F3         workspace number 13
+bindsym $mod+F4         workspace number 14
+bindsym $mod+F5         workspace number 15
+bindsym $mod+F6         workspace number 16
+bindsym $mod+F7         workspace number 17
+bindsym $mod+F8         workspace number 18
+bindsym $mod+F9         workspace number 19
+bindsym $mod+F10        workspace number 20
+
+bindsym $mod+Shift+ampersand  move container to workspace number 1
+bindsym $mod+Shift+eacute     move container to workspace number 2
+bindsym $mod+Shift+quotedbl   move container to workspace number 3
+bindsym $mod+Shift+apostrophe move container to workspace number 4
+bindsym $mod+Shift+parenleft  move container to workspace number 5
+bindsym $mod+Shift+minus      move container to workspace number 6
+bindsym $mod+Shift+egrave     move container to workspace number 7
+bindsym $mod+Shift+underscore move container to workspace number 8
+bindsym $mod+Shift+ccedilla   move container to workspace number 9
+bindsym $mod+Shift+agrave     move container to workspace number 10
+bindsym $mod+Shift+F1         move container to workspace number 11
+bindsym $mod+Shift+F2         move container to workspace number 12
+bindsym $mod+Shift+F3         move container to workspace number 13
+bindsym $mod+Shift+F4         move container to workspace number 14
+bindsym $mod+Shift+F5         move container to workspace number 15
+bindsym $mod+Shift+F6         move container to workspace number 16
+bindsym $mod+Shift+F7         move container to workspace number 17
+bindsym $mod+Shift+F8         move container to workspace number 18
+bindsym $mod+Shift+F9         move container to workspace number 19
+bindsym $mod+Shift+F10        move container to workspace number 20
+
+bindsym $mod+twosuperior workspace back_and_forth
+bindsym $mod+parenright  workspace prev
+bindsym $mod+equal       workspace next
+
+bindsym $mod+Shift+i move workspace to output left
+bindsym $mod+Shift+o move workspace to output right
+
+# Layout
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+a focus parent
+
+# Resize
+mode "resize" {
+	bindsym $left resize shrink width 10ppt
+	bindsym $down resize grow height 10ppt
+	bindsym $up resize shrink height 10ppt
+	bindsym $right resize grow width 10ppt
+
+	bindsym Left resize shrink width 10ppt
+	bindsym Down resize grow height 10ppt
+	bindsym Up resize shrink height 10ppt
+	bindsym Right resize grow width 10ppt
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# == Bars ==
+
+bar {
+	position top
+	status_command ~/.config/sway/i3status
+
+	colors {
+		statusline $white
+		background $black
+		focused_workspace $ncolor $ncolor $white
+	}
+}
+
+# == Quake ==
+exec quaket-start
+bindsym $mod+Escape [app_id=quaket] move position 0 -19 ; scratchpad show

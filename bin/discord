@@ -1,0 +1,2 @@
+#!/bin/sh
+exec strat arch electron12 /usr/lib/discord/app.asar --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-memory-buffer-video-frames --enable-gpu

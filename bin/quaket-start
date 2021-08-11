@@ -1,0 +1,6 @@
+#!/bin/bash
+
+kitty --detach -1 -o initial_window_width=730 -o initial_window_height=260 --class=quaket --title="Quake Python Terminal" ipython3
+sleep 0.5s
+
+swaymsg "[app_id=quaket] focus ; floating enable ; move scratchpad"

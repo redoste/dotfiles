@@ -1,0 +1,5 @@
+#!/bin/sh
+mpd_pid="$(cat /run/user/"$(id -u)"/mpd.pid 2>/dev/null)"
+if ! ps -p "$mpd_pid" >/dev/null 2>/dev/null; then
+	exec mpd --no-daemon
+fi

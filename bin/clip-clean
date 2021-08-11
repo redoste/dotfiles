@@ -1,0 +1,4 @@
+#!/bin/sh
+wl-copy -c
+wl-copy -cp
+notify-send "clip-clean" "Primary and clipboard cleared"

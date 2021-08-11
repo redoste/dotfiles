@@ -1,0 +1,9 @@
+#!/bin/bash
+while true; do
+	acpi_output=$(acpi -b)
+	battery_level=$(echo "$acpi_output" | grep -P -o '[0-9]+(?=%)')
+	if [ "$battery_level" -le 20 ]; then
+		notify-send -u critical "Battery low" "${acpi_output}"
+	fi
+	sleep 1m
+done

@@ -1,0 +1,5 @@
+#!/bin/bash
+light
+while inotifywait -qe MODIFY /sys/class/backlight/intel_backlight/brightness >/dev/null; do
+	light
+done

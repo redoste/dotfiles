@@ -1,0 +1,4 @@
+#!/bin/sh
+# This script makes launching a new instance of kitty feels snappier (on my old hardware at least) because we don't serialize a huge JSON from scratch each time
+# Yeah, it's an ugly way of doing things
+echo '{"cmd": "new_instance", "args": ["/usr/bin/../lib/kitty", "-1"'"$1"'], "startup_id": "'"$DESKTOP_STARTUP_ID"'", "cwd": '"$(pwd | jq -R ".")"'}' | socat stdio ABSTRACT-CONNECT:kitty-ipc-"$(id -u)"

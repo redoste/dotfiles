@@ -1,0 +1,12 @@
+[Default Applications]
+x-scheme-handler/http=firefox-new-window.desktop
+x-scheme-handler/https=firefox-new-window.desktop
+x-scheme-handler/chrome=firefox-new-window.desktop
+text/html=firefox-new-window.desktop
+application/x-extension-htm=firefox-new-window.desktop
+application/x-extension-html=firefox-new-window.desktop
+application/x-extension-shtml=firefox-new-window.desktop
+application/xhtml+xml=firefox-new-window.desktop
+application/x-extension-xhtml=firefox-new-window.desktop
+application/x-extension-xht=firefox-new-window.desktop
+inode/directory=term-folder.desktop

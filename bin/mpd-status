@@ -1,0 +1,75 @@
+#!/usr/bin/python3
+import os
+import socket
+import sys
+import time
+
+def read_socket_line(sock):
+    line = b""
+    while True:
+        line += sock.recv(1)
+        if line[-1] == ord("\n"):
+            break
+    return line.decode()
+
+def parse_key_value(mpd_conn):
+    line = ""
+    out = {}
+    while line != "OK":
+        line = read_socket_line(mpd_conn).strip()
+        if line != "OK":
+            key_value_array = line.split(":")
+            key = key_value_array[0].strip()
+            value = ":".join(key_value_array[1:]).strip()
+            out[key] = value
+    return out
+
+def main():
+    mpd_conn = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    mpd_conn.connect(os.getenv("MPD_HOST"))
+    # Read MPD version
+    read_socket_line(mpd_conn)
+    old_line = ""
+
+    while True:
+        mpd_conn.send(b"status\n")
+        status_values = parse_key_value(mpd_conn)
+        mpd_conn.send(b"currentsong\n")
+        song_values = parse_key_value(mpd_conn)
+
+        if song_values.get("Title", "") == "" and song_values.get("Artist", "") == "":
+            song_text = song_values.get("file", "invalid song")
+        else:
+            song_text = "%s - %s" % (song_values.get("Artist", ""), song_values.get("Title", ""))
+
+        if status_values.get("volume", "") != "":
+            song_text += " - V: %s%%" % status_values.get("volume", "")
+
+        if status_values["state"] == "play":
+            new_line = "g" + song_text
+        elif status_values["state"] == "pause":
+            new_line = "d" + song_text
+        else:
+            new_line = "bMPD: %s" % (status_values["state"])
+
+        if new_line != old_line:
+            # We don't use `print` to be able to flush immediately
+            sys.stdout.write(new_line + "\n")
+            sys.stdout.flush()
+            old_line = new_line
+
+        while True:
+            mpd_conn.send(b"idle\n")
+            change_reason = parse_key_value(mpd_conn)
+            if change_reason["changed"] == "player" or change_reason["changed"] == "mixer":
+                break
+
+if __name__ == "__main__":
+    # We wrap everything in a try/except to prevent the bar from crashing if MPD dies
+    while True:
+        try:
+            main()
+        except Exception as e:
+            sys.stdout.write("bException: %s\n" % (str(e)))
+            sys.stdout.flush()
+            time.sleep(10)

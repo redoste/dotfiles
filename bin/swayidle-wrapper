@@ -1,0 +1,76 @@
+#!/usr/bin/python3
+import os
+import signal
+import socket
+import subprocess
+import sys
+import time
+
+TIMEOUT = 300
+PROCESS = None
+
+def is_alive():
+    global PROCESS
+    return PROCESS is not None and PROCESS.poll() is None
+
+def relive():
+    global PROCESS
+    if not is_alive():
+        PROCESS = subprocess.Popen(["swayidle", "-w",
+                                    "timeout", "%d" % TIMEOUT, "swaylock -f -c 000000",
+                                    "timeout", "%d" % TIMEOUT, "swaymsg \"output * dpms off\"",
+                                    "resume", "swaymsg \"output * dpms on\""])
+
+def status():
+    return "bcafe disabled" if is_alive() else "gCAFE ENABLED"
+
+SOCKET = None
+def log(line):
+    global SOCKET
+    if SOCKET is None:
+        SOCKET = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+    sys.stdout.buffer.write(line.encode())
+    sys.stdout.buffer.flush()
+    try:
+        SOCKET.sendto(line.encode(), os.path.join(os.getenv("XDG_RUNTIME_DIR"), "swayidle-wrapper"))
+    except ConnectionRefusedError:
+        pass
+    except FileNotFoundError:
+        pass
+
+def notify(line):
+    p = subprocess.Popen(["notify-send", "cafe", line])
+    p.wait()
+
+def signal_handler(signum, frame):
+    global PROCESS
+    if signum != signal.SIGUSR1:
+        return
+    try:
+        if is_alive():
+            PROCESS.terminate()
+            PROCESS.wait()
+        else:
+            relive()
+        current_status = status()
+        log(current_status + "\n")
+        notify(current_status[1:])
+    except Exception as e:
+        log("bException: %s\n" % (str(e)))
+
+def main():
+    relive()
+    log(status() + "\n")
+
+    signal.signal(signal.SIGUSR1, signal_handler)
+
+    while True:
+        time.sleep(86400)
+
+if __name__ == "__main__":
+    while True:
+        try:
+            main()
+        except Exception as e:
+            log("bException: %s\n" % (str(e)))
+            time.sleep(10)

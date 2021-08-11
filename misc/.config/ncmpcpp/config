@@ -1,0 +1,9 @@
+autocenter_mode = yes
+
+connected_message_on_startup = no
+
+progressbar_color = 242:b
+
+visualizer_data_source = /run/user/1000/mpd.fifo
+visualizer_output_name = Visualizer feed
+visualizer_in_stereo = yes

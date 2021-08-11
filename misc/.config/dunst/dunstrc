@@ -1,0 +1,38 @@
+[global]
+	geometry = "300x5-30+20"
+
+	separator_height = 2
+	separaton_color = frame
+
+	padding = 8
+	horizontal_padding = 8
+
+	frame_width = 3
+	frame_color = "#431e3f"
+
+	font = "Deja Vu Sans Mono 8"
+
+	# Put summary on its own line
+	format = "<b>%s</b>\n%b"
+
+	word_wrap = yes
+
+	max_icon_size = 32
+
+[urgency_low]
+	background = "#763457"
+	foreground = "#dfdfdf"
+	timeout = 0
+
+[urgency_normal]
+	background = "#954f74"
+	foreground = "#dfdfdf"
+	timeout = 0
+
+[urgency_critical]
+	background = "#900000"
+	foreground = "#ffffff"
+	frame_color = "#ff0000"
+	timeout = 0
+
+# vim: ft=cfg

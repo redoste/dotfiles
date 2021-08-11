@@ -1,0 +1,7 @@
+#!/bin/bash
+pids=$(pgrep -f "python.*swayidle-wrapper$" -d " ")
+if [ "$( echo "$pids" | wc -w)" -ne 1 ]; then
+	notify-send -u critical "cafe" "There isn't exactly one process matching \`python.*swayidle-wrapper$\`. Kill USR1 aborted"
+else
+	kill -USR1 "$pids"
+fi

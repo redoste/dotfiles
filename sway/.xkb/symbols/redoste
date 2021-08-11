@@ -1,0 +1,26 @@
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+	include "fr(basic)"
+	name[Group1]="French (redoste layout)";
+
+	// Menu is its own modifier
+	key <MENU> { [ Hyper_R, Hyper_R, Hyper_R, Hyper_R ] };
+	modifier_map Mod3 { Hyper_R };
+
+	// Caps lock is escape
+	key <CAPS> { [ Escape, Escape, Escape, Escape ] };
+	// modifier_map Lock { NoSymbol };
+
+	// Right Windows is disabled (used for push to talk)
+	key <RWIN> { [ NoSymbol, NoSymbol, NoSymbol, NoSymbol ] };
+
+	// ¨ and ^ are not dead without AltGr
+	key <AD11> { [ asciicircum, diaeresis, dead_circumflex, dead_diaeresis ] };
+
+	// Make uppercase accents
+	key <AE02> { [    eacute,          2,   asciitilde,    Eacute ] };
+	key <AE07> { [    egrave,          7,        grave,    Egrave ] };
+	key <AE09> { [  ccedilla,          9,  asciicircum,    Ccedilla ] };
+	key <AE10> { [    agrave,          0,           at,    Agrave ] };
+	key <AC11> { [    ugrave,    percent,       Ugrave,    Ugrave ] };
+};

@@ -1,0 +1,8 @@
+[user]
+	name = redoste
+	email = redoste@redoste.xyz
+[alias]
+	tree = log --graph --all --pretty=oneline
+	t = tree
+	l = log
+	s = status
