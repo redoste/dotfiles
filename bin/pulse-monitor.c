@@ -1,5 +1,6 @@
 #include <pulse/pulseaudio.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 static void sink_callback(pa_context* context, const pa_sink_info* info, int eol, void* userdata) {
@@ -21,8 +22,12 @@ static void sink_callback(pa_context* context, const pa_sink_info* info, int eol
 static void server_info_callback(pa_context* context, const pa_server_info* info, void* userdata) {
 	(void)userdata;
 
-	pa_operation* o = pa_context_get_sink_info_by_name(context, info->default_sink_name, sink_callback, NULL);
-	pa_operation_unref(o);
+	// The default_sink_name is temporarily "@DEFAULT_SINK@" when we change profiles
+	// This breaks stuff
+	if (strcmp(info->default_sink_name, "@DEFAULT_SINK@") != 0) {
+		pa_operation* o = pa_context_get_sink_info_by_name(context, info->default_sink_name, sink_callback, NULL);
+		pa_operation_unref(o);
+	}
 }
 
 inline static void update_status(pa_context* context) {
