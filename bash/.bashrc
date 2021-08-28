@@ -81,6 +81,7 @@ alias sll='sls -lAh --time-style=long-iso'
 alias hd='hexdump -C'
 alias feh='feh -.Z'
 alias wpa_cli='wpa_cli -iwlan0'
+alias readelf='readelf -W'
 alias xcp='wl-copy -n'
 alias xpa='wl-paste -n'
 function jqless() {
