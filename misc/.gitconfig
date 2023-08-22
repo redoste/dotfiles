@@ -2,7 +2,7 @@
 	name = redoste
 	email = redoste@redoste.xyz
 [alias]
-	tree = log --graph --all --pretty=oneline
+	tree = log --graph --all --oneline
 	t = tree
 	l = log
 	s = status
