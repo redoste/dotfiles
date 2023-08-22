@@ -6,3 +6,5 @@
 	t = tree
 	l = log
 	s = status
+	d = diff
+	dc = diff --cached
