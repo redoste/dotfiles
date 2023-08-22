@@ -13,7 +13,6 @@ import (
 	"barista.run/modules/cputemp"
 	"barista.run/modules/meminfo"
 	"barista.run/modules/netinfo"
-	"barista.run/modules/netspeed"
 	"barista.run/modules/shell"
 	"barista.run/modules/sysinfo"
 	"barista.run/modules/wlan"
@@ -162,13 +161,6 @@ func main() {
 		}
 		return outputs.Text("W: down").Color(colors.Scheme("bad"))
 	}))
-	barista.Add(netspeed.New("wlan0").Output(func(s netspeed.Speeds) bar.Output {
-		if s.Total().BitsPerSecond() == 0 {
-			return nil
-		}
-		return outputs.Textf("W: %s↓ %s↑",
-			format.IByterate(s.Rx), format.IByterate(s.Tx))
-	}))
 
 	// Ethernet
 	barista.Add(netinfo.Prefix("e").Output(func(s netinfo.State) bar.Output {
@@ -180,13 +172,6 @@ func main() {
 			return outputs.Textf("E: %s", ip).Color(colors.Scheme("good"))
 		}
 		return outputs.Text("E: down").Color(colors.Scheme("bad"))
-	}))
-	barista.Add(netspeed.New("eth0").Output(func(s netspeed.Speeds) bar.Output {
-		if s.Total().BitsPerSecond() == 0 {
-			return nil
-		}
-		return outputs.Textf("E: %s↓ %s↑",
-			format.IByterate(s.Rx), format.IByterate(s.Tx))
 	}))
 
 	// Time
