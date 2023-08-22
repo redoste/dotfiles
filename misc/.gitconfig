@@ -1,6 +1,7 @@
 [user]
 	name = redoste
 	email = redoste@redoste.xyz
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmCMS6tLOaM/cyYsLm5Ky61o3IK0e9Y5PvZ0y/9AlYI
 [alias]
 	tree = log --graph --all --oneline
 	t = tree
@@ -8,3 +9,11 @@
 	s = status
 	d = diff
 	dc = diff --cached
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/git-sign.allow
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
