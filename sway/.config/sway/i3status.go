@@ -154,8 +154,10 @@ func main() {
 	barista.Add(wlan.Any().Output(func(w wlan.Info) bar.Output {
 		if w.Connected() {
 			out := fmt.Sprintf("W: (%s on %2.1fG)", w.SSID, w.Frequency.Gigahertz())
-			if len(w.IPs) > 0 {
-				out += fmt.Sprintf(" %s", w.IPs[0])
+			for _, ip := range w.IPs {
+				if ip.IsPrivate() || ip.IsGlobalUnicast() {
+					out += " " + ip.String()
+				}
 			}
 			return outputs.Text(out).Color(colors.Scheme("good"))
 		}
@@ -165,11 +167,13 @@ func main() {
 	// Ethernet
 	barista.Add(netinfo.Prefix("e").Output(func(s netinfo.State) bar.Output {
 		if s.Connected() {
-			ip := "<no ip>"
-			if len(s.IPs) > 0 {
-				ip = s.IPs[0].String()
+			ipString := ""
+			for _, ip := range s.IPs {
+				if ip.IsPrivate() || ip.IsGlobalUnicast() {
+					ipString += " " + ip.String()
+				}
 			}
-			return outputs.Textf("E: %s", ip).Color(colors.Scheme("good"))
+			return outputs.Textf("E:%s", ipString).Color(colors.Scheme("good"))
 		}
 		return outputs.Text("E: down").Color(colors.Scheme("bad"))
 	}))
