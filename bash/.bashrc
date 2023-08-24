@@ -39,7 +39,9 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # == END OF THE PRE-GUI PART ==
 # We use tty1 for sway
-[[ -z $DISPLAY ]] && [[ -z $WAYLAND_DISPLAY ]] && [[ "$(tty)" = "/dev/tty1" ]] && exec dbus-launch --exit-with-session sway
+if [[ -z $DISPLAY ]] && [[ -z $WAYLAND_DISPLAY ]] && [[ "$(tty)" = "/dev/tty1" ]]; then
+	exec dbus-launch --exit-with-session sway -V 2>>$XDG_RUNTIME_DIR/sway.log.err >>$XDG_RUNTIME_DIR/sway.log.out
+fi
 
 # This should not be committed
 . $HOME/.bashrc_secret
