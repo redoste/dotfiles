@@ -44,7 +44,10 @@ focus_follows_mouse no
 exec kanshi
 exec battery-notification
 exec dunst
-exec kitty -1
+# NOTE : I used to use the server but there was a bug causing a SIGSEGV sometimes when resizing a client and it's annoying to lose all your terminals
+#        The standalone version is pretty quick to start so it's not a problem for now
+# TODO : Move back to the server setup if it's worth it
+# exec foot -s --log-no-syslog
 exec mpd-wrapper
 exec pipewire
 exec pipewire-pulse
@@ -104,7 +107,8 @@ bindsym Ctrl+Mod1+l exec swaylock -Ffi ~/Images/wallpaper --clock --datestr '%a 
 bindsym $mod+Shift+q kill
 
 # Frequently used apps
-bindsym $mod+Return exec kitty-fast
+# bindsym $mod+Return exec footclient
+bindsym $mod+Return exec foot --log-no-syslog
 bindsym $mod+Backspace exec firefox
 # We use two `--private-window` to force opening a new window (firefox bug ?)
 bindsym $mod+Shift+Backspace exec firefox --private-window --private-window about:privatebrowsing

@@ -77,11 +77,28 @@ export MANPAGER="nvim +Man!"
 export NVIM_COC_LOG_LEVEL=off
 export NVIM_COC_LOG_FILE="$XDG_RUNTIME_DIR/coc-nvim.log"
 
+# foot integration
+# https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory
+osc7_cwd() {
+    local strlen=${#PWD}
+    local encoded=""
+    local pos c o
+    for (( pos=0; pos<strlen; pos++ )); do
+        c=${PWD:$pos:1}
+        case "$c" in
+            [-/:_.!\'\(\)~[:alnum:]] ) o="${c}" ;;
+            * ) printf -v o '%%%02X' "'${c}" ;;
+        esac
+        encoded+="${o}"
+    done
+    printf '\e]7;file://%s%s\e\\' "${HOSTNAME}" "${encoded}"
+}
+
 # Do not save dupplicates in the history and lines starting with a space
 export HISTCONTROL="ignoreboth"
 # Better sync of histories : append instead of overwrite and sync at each prompt
 shopt -s histappend
-export PROMPT_COMMAND="history -a; ${PROMPT_COMMAND}"
+export PROMPT_COMMAND="osc7_cwd; history -a"
 # Bigger history
 export HISTFILESIZE=10000
 export HISTSIZE=${HISTFILESIZE}

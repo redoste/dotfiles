@@ -1,6 +1,8 @@
 #!/bin/bash
 
-kitty --detach -1 -o initial_window_width=730 -o initial_window_height=260 --class=quaket ipython3
-sleep 0.5s
+# footclient -N -a quaket -o main.initial-window-size-pixels=730x260 ipython3
+foot -a quaket --log-no-syslog -o main.initial-window-size-pixels=730x260 ipython3 &
+disown
+sleep 2s
 
 swaymsg "[app_id=quaket] focus ; floating enable ; move scratchpad"
