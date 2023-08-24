@@ -43,6 +43,10 @@ nnoremap <silent> <C-i> :bp<CR>
 nnoremap <silent> <C-M-o> :bdel<CR>
 nnoremap <silent> <C-M-i> :bdel<CR>
 
+" Previous / next jumps
+nnoremap <silent> <Tab> <C-O>
+nnoremap <silent> <S-Tab> <C-I>
+
 " Build and format
 nnoremap <silent> <F5> :silent make!<CR>
 function ClangFormat()
