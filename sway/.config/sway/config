@@ -114,8 +114,6 @@ bindsym $mod+Shift+Backspace exec firefox --private-window --private-window abou
 bindsym $moda+Pause mode "apps"
 bindsym $moda+B mode "apps"
 mode "apps" {
-	bindsym H exec kitty-fast ', \"htop\"' ; mode "default"
-	bindsym N exec kitty-fast ', \"ncmpcpp\"' ; mode "default"
 	bindsym V exec pavucontrol; mode "default"
 	bindsym C exec swayidle-wrapper-toggle ; mode "default"
 	bindsym Shift+C exec clip-clean ; mode "default"
@@ -128,8 +126,6 @@ mode "apps" {
 	bindsym $moda+B mode "default"
 }
 mode "mpd" {
-	bindsym N exec kitty-fast ', \"ncmpcpp\"' ; mode "default"
-
 	bindsym K          exec mpc toggle    ; mode "default"
 	bindsym Shift+C    exec mpc clear     ; exec notify-send "MPD Playlist cleared" ; mode "default"
 	bindsym less       exec mpc prev      ; mode "default"
