@@ -101,8 +101,6 @@ bindsym XF86MonBrightnessDown exec light -U 10
 bindsym Print exec grimshot copy area
 bindsym Ctrl+Mod1+l exec swaylock -Ffi ~/Images/wallpaper --clock --datestr '%a %F' --effect-blur 10x1 --indicator
 bindsym $mod+Shift+q kill
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 # Frequently used apps
 bindsym $mod+Return exec kitty-fast
