@@ -60,8 +60,6 @@ set mouse=a
 set hidden
 " Use a prompt for saving
 set confirm
-" Use A4 with small margins
-set printoptions=left:0.5in,right:0.5in,top:0.5in,bottom:0.5in,syntax:y,wrap:y,paper:A4
 " Always show the quick fix buffer
 autocmd QuickFixCmdPost * botright copen 6 | wincmd p
 
