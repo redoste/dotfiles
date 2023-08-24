@@ -30,6 +30,9 @@ export MPD_HOST="$XDG_RUNTIME_DIR/mpd"
 # Prevent wine from messing with XDG
 export WINEDLLOVERRIDES="winemenubuilder.exe=d"
 
+# Microsoft
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # == END OF THE PRE-GUI PART ==
 # We use tty1 for sway
 [[ -z $DISPLAY ]] && [[ -z $WAYLAND_DISPLAY ]] && [[ "$(tty)" = "/dev/tty1" ]] && exec dbus-launch --exit-with-session sway
