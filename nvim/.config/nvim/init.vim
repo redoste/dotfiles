@@ -97,6 +97,7 @@ nnoremap <F2> :Rg<CR>
 nnoremap <F4> :Buffers<CR>
 
 " coc
+let g:coc_start_at_startup = 0
 " Popup
 nnoremap <silent> m :call CocActionAsync('dohover')<CR>
 " Navigation
