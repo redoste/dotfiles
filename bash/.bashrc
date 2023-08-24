@@ -55,6 +55,12 @@ bind 'set keyseq-timeout 50'
 # for some reason this broke clear
 bind -x '"\C-l": clear'
 
+# Case insensitive TAB
+bind 'set completion-ignore-case on'
+
+# Colored completion
+bind 'set colored-stats on'
+
 # Disable less history and enable its raw mode (colors)
 export LESS="-R"
 export LESSHISTFILE="-"
