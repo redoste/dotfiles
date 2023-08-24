@@ -94,6 +94,9 @@ alias wpa_cli='wpa_cli -iwlan0'
 alias readelf='readelf -W'
 alias xcp='wl-copy -n'
 alias xpa='wl-paste -n'
+alias pvim='nvim -i NONE -u NONE --cmd "set noswapfile" --cmd "set nobackup" --cmd "set linebreak" --cmd "set clipboard+=unnamedplus" --noplugin'
+alias ptar='tar --sort=name --mtime=@0 --owner=0 --group=0 --numeric-owner'
+alias pgzip='gzip -n'
 function jqless() {
 	jq . "$1" -C | less
 }
