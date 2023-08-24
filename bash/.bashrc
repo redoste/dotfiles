@@ -88,7 +88,7 @@ function jqless() {
 	jq . "$1" -C | less
 }
 function ytdl-mpv-audio() {
-	mpv ytdl://ytsearch:"$argv" --ytdl-format=bestaudio
+	mpv ytdl://ytsearch:"$*" --ytdl-format=bestaudio
 }
 function chrono() {
 	now="$(date +%s)sec"
