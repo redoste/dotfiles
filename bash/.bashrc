@@ -140,6 +140,11 @@ alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 alias ffplay='ffplay -hide_banner'
 
+alias :q='exit'
+alias :qa='exit'
+alias :q!='exit'
+alias :qa!='exit'
+
 # Title bar
 PS1='\[\033]0;\u@\h:\w\007\]'
 # Date
