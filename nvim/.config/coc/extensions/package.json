@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "coc-clangd": ">=0.12.0"
+    "coc-clangd": ">=0.12.0",
+    "coc-html": ">=1.6.1",
+    "coc-pyright": ">=1.1.255",
+    "coc-rust-analyzer": ">=0.65.2",
+    "coc-sh": ">=0.7.0",
+    "coc-tsserver": ">=1.10.5"
   }
 }
