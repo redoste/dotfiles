@@ -125,6 +125,15 @@ function ctf() {
 		cd "$(readlink current)"
 	fi
 }
+function ctfset() {
+	if [ -d "$HOME/ctf/$1" ]; then
+		unlink $HOME/ctf/current && \
+		ln -s $1 $HOME/ctf/current
+	else
+		printf "ctfset : %s : " "$1" >&2
+		errno ENOENT | cut -d " " -f 3- >&2
+	fi
+}
 
 # Open new gui app and send the term to the scratchpad
 function g() {
