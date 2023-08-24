@@ -80,6 +80,7 @@ export HISTSIZE=${HISTFILESIZE}
 
 # Colors
 alias ip='ip -c'
+alias sip='sudo ip -c'
 alias grep='grep --color'
 alias ls='ls --color=auto'
 alias sls='sudo ls --color=auto'
