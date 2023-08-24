@@ -67,6 +67,10 @@ input type:touchpad {
 	pointer_accel 0
 }
 
+input type:mouse {
+	pointer_accel 0
+}
+
 # == Keyboard ==
 
 # Audio things
