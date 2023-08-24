@@ -119,3 +119,6 @@ set updatetime=100
 " Always show left column without any color
 set signcolumn=yes
 highlight! link SignColumn LineNr
+
+" Grammalecte
+let g:grammalecte_cli_py="/usr/bin/grammalecte-cli.py"
