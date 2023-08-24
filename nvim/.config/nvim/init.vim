@@ -74,6 +74,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dpelle/vim-Grammalecte'
+Plug 'gpanders/editorconfig.nvim'
 call plug#end()
 
 " Airline
