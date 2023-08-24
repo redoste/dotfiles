@@ -17,7 +17,7 @@ def relive():
     global PROCESS
     if not is_alive():
         PROCESS = subprocess.Popen(["swayidle", "-w",
-                                    "timeout", "%d" % TIMEOUT, "swaylock -f -c 000000",
+                                    "timeout", "%d" % TIMEOUT, "swaylock -Ffi ~/Images/wallpaper --clock --datestr '%a %F' --effect-blur 10x1 --indicator",
                                     "timeout", "%d" % TIMEOUT, "swaymsg \"output * dpms off\"",
                                     "resume", "swaymsg \"output * dpms on\""])
 
