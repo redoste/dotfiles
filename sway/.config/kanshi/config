@@ -1,0 +1,9 @@
+profile "docked" {
+	output 'Dell Inc. DELL 2007FP Y99236B60G5S' mode 1600x1200@60Hz position 3840,0 transform 90
+	output 'Iiyama North America PL2530H 1154373302987' mode 1920x1080@75Hz position 1920,0
+	output eDP-1 mode 1920x1080@60Hz position 0,0
+}
+
+profile "laptop" {
+	output eDP-1 mode 1920x1080@60Hz position 0,0
+}
