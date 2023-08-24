@@ -13,12 +13,16 @@ case ":$PATH:" in
 esac
 
 # ssh-agent
-if [ ! -n "$SSH_AUTH_SOCK" ]; then
-	if [ ! -f "$XDG_RUNTIME_DIR/ssh-agent.sh" ]; then
-		ssh-agent | grep -v "echo" > "$XDG_RUNTIME_DIR/ssh-agent.sh"
-		chmod 600 "$XDG_RUNTIME_DIR/ssh-agent.sh"
+if [ -n "$XDG_RUNTIME_DIR" ]; then
+	if [ -z "$SSH_AUTH_SOCK" ]; then
+		if [ ! -f "$XDG_RUNTIME_DIR/ssh-agent.sh" ]; then
+			ssh-agent | grep -v "echo" > "$XDG_RUNTIME_DIR/ssh-agent.sh"
+			chmod 600 "$XDG_RUNTIME_DIR/ssh-agent.sh"
+		fi
+		[ -f "$XDG_RUNTIME_DIR/ssh-agent.sh" ] && . $XDG_RUNTIME_DIR/ssh-agent.sh
 	fi
-	[ -f "$XDG_RUNTIME_DIR/ssh-agent.sh" ] && . $XDG_RUNTIME_DIR/ssh-agent.sh
+else
+	echo "WARNING : No \$XDG_RUNTIME_DIR" >&2
 fi
 
 # Force firefox to use wayland
