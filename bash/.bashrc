@@ -55,6 +55,9 @@ export LESSHISTFILE="-"
 export EDITOR="/usr/bin/vim"
 export PAGER="/usr/bin/less"
 
+# Use man with neovim
+export MANPAGER="nvim +Man!"
+
 # Do not fill XDG_RUNTIME_DIR with coc logs
 export NVIM_COC_LOG_LEVEL=off
 export NVIM_COC_LOG_FILE="$XDG_RUNTIME_DIR/coc-nvim.log"
@@ -114,11 +117,6 @@ function ctf() {
 	else
 		cd "$(readlink current)"
 	fi
-}
-
-# Use man with neovim
-function man() {
-	command man $1 | nvim -MR +"set filetype=man" -
 }
 
 # Open new gui app and send the term to the scratchpad
