@@ -18,8 +18,8 @@ def relive():
     if not is_alive():
         PROCESS = subprocess.Popen(["swayidle", "-w",
                                     "timeout", "%d" % TIMEOUT, "swaylock -Ffi ~/Images/wallpaper --clock --datestr '%a %F' --effect-blur 10x1 --indicator",
-                                    "timeout", "%d" % TIMEOUT, "swaymsg \"output * dpms off\"",
-                                    "resume", "swaymsg \"output * dpms on\""])
+                                    "timeout", "%d" % TIMEOUT, "swaymsg \"output * power off\"",
+                                    "resume", "swaymsg \"output * power on\""])
 
 def status():
     return "bcafe disabled" if is_alive() else "gCAFE ENABLED"
