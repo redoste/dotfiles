@@ -107,6 +107,8 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Rename
 nmap cr <Plug>(coc-rename)
+" Colors
+highlight CocInlayHint ctermfg=242
 
 " GitGutter
 highlight GitGutterAdd    ctermfg=2
