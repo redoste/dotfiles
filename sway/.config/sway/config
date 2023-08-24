@@ -148,6 +148,7 @@ bindsym $mod+d exec dmenu_path | dmenu | xargs swaymsg exec --
 
 # Dunst
 bindsym $mod+Ctrl+Space exec dunstctl close
+bindsym $mod+Ctrl+Alt+Space exec dunstctl history-pop
 
 # Containers
 bindsym $mod+$left focus left
