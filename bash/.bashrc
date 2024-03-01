@@ -136,7 +136,7 @@ function ytdl-mpv-audio() {
 	mpv ytdl://ytsearch:"$*" --ytdl-format=bestaudio
 }
 function chrono() {
-	now="$(date +%s)sec"
+	local now="$(date +%s)sec"
 	watch -n0.1 -p TZ=UTC date --date now-"$now" +%H:%M:%S.%N
 	TZ=UTC date --date now-"$now" +%H:%M:%S.%N
 }
@@ -172,7 +172,7 @@ function ctfset() {
 
 # Open new gui app and send the term to the scratchpad
 function g() {
-	terminal_id="$(swaymsg -t get_tree | jq '..| select(.type?) | select(.focused==true) | .id')"
+	local terminal_id="$(swaymsg -t get_tree | jq '..| select(.type?) | select(.focused==true) | .id')"
 	swaymsg "move scratchpad"
 	"$@"
 	swaymsg "[con_id=$terminal_id] focus; floating disable"
