@@ -21,6 +21,10 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 set list
 set listchars=tab:>·,trail:~,extends:>,precedes:<
 
+" Column for commit messages and mails
+autocmd FileType gitcommit set colorcolumn=73
+autocmd FileType mail set colorcolumn=73
+
 " == Keyboard ==
 
 " Bad habits
